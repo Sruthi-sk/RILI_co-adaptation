@@ -15,12 +15,14 @@ You can install the above packages by running the following command
 
 `
 pip install -r requirements.txt
+pip install tensorboard
+
 `
 
 Then, install the gym environment:
 
 ```
-cd gym_rili
+cd gym-rili
 pip install -e .
 cd ..
 ```
@@ -32,7 +34,7 @@ To train the RILI model with the _Circle_ environment, run the following:
 
 You can train the model in different environments using the `--env-name` argument. It has the following
 values:
-
+python3 main.py --env-name rili-driving-v0 
 - `rili-circle-v0`
 - `rili-circle-N-v0`
 - `rili-driving-v0`
