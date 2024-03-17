@@ -1,4 +1,6 @@
 Metadata-Version: 2.1
-Name: gym-rili
+Name: gym_rili
 Version: 0.1
 Author: Collab
+Requires-Dist: gym
+Requires-Dist: numpy
