@@ -1,4 +1,4 @@
-torch~=1.14.0.dev20221011
+torch~=2.2.1
 numpy~=1.23.3
 gym~=0.23.1
 pybullet~=3.2.5

@@ -20,7 +20,7 @@ pip install -r requirements.txt
 Then, install the gym environment:
 
 ```
-cd gym_rili
+cd gym-rili
 pip install -e .
 cd ..
 ```

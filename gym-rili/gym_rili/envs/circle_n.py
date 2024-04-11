@@ -25,7 +25,7 @@ class Circle_N(gym.Env):
 
         self.radius = 1.0
         self.change_partner = 0.99
-        self.step_size = np.random.random() * 2 * np.pi - np.pi
+        self.reset_theta = 0.999
         self.ego = np.copy(ego_home)
         self.other = np.array([self.radius, 0.])
         self.theta = 0.0
@@ -54,14 +54,33 @@ class Circle_N(gym.Env):
         self.ego += action
         reward = -np.linalg.norm(self.other - self.ego) * 100
         done = False
+        
         if self.timestep == 10:
             self.timestep = 0
-            # choose a new partner with random step size
+            # randomly reset the other agent
+            if np.random.random() > self.reset_theta:
+                self.theta = np.random.uniform(0, 2*np.pi)
+            # choose a new partner from the options
             if np.random.random() > self.change_partner:
-                self.partner += 1
-                self.step_size = np.random.random() * 2 * np.pi - np.pi
-            self.theta += self.step_size
+                self.partner = np.random.choice(range(4))
+
+            # LILI
+            if self.partner == 0:
+                if np.linalg.norm(self.ego) > self.radius:
+                    self.theta += np.pi/10
+                else:
+                    self.theta -= np.pi/10
+            # SILI
+            if self.partner == 1:
+                if np.linalg.norm(self.ego) > self.radius:
+                    self.theta -= np.pi/8
+            # No influence
+            if self.partner == 2:
+                self.theta += np.pi/4
+            # No influence
+            if self.partner == 3:
+                self.theta -= np.pi/2
+
             self.ego = np.copy(ego_home)
             self.other = self.polar(self.theta)
         return self._get_obs(), reward, done, {}
-
